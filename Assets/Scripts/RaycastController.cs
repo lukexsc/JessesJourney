@@ -5,9 +5,10 @@ using System.Collections;
 public class RaycastController : MonoBehaviour
 {
 	public LayerMask collision_mask;
+	const float ray_space = 0.25f;
 	[HideInInspector] public const float skin = 0.015f;
-	public int hor_ray_count = 3;
-	public int ver_ray_count = 3;
+	[HideInInspector] public int hor_ray_count;
+	[HideInInspector] public int ver_ray_count;
 
 	[HideInInspector] public float hor_ray_space;
 	[HideInInspector] public float ver_ray_space;
@@ -42,9 +43,9 @@ public class RaycastController : MonoBehaviour
 		Bounds bounds = col.bounds;
 		bounds.Expand(-2*skin);
 
-		// Set Minimum of 2 rays
-		hor_ray_count = Mathf.Clamp(hor_ray_count, 2, int.MaxValue);
-		ver_ray_count = Mathf.Clamp(ver_ray_count, 2, int.MaxValue);
+		// Set Raycount
+		hor_ray_count = Mathf.Max(Mathf.CeilToInt(bounds.size.y / ray_space), 2);
+		ver_ray_count = Mathf.Max(Mathf.CeilToInt(bounds.size.x / ray_space), 2);
 
 		// Calculate Spacing
 		hor_ray_space = bounds.size.y / (hor_ray_count-1);
