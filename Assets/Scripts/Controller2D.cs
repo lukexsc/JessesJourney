@@ -4,6 +4,7 @@ using System.Collections;
 public class Controller2D : RaycastController
 {
 	CollisionInfo collisions;
+	[HideInInspector] public Vector2 facing; // direction facing
 
 	// Move Object
 	public void Move (Vector2 velocity)
@@ -11,6 +12,7 @@ public class Controller2D : RaycastController
 		collisions.Reset();
 		UpdateRaycastOrigins();
 		collisions.velocity_old = velocity;
+		SetFacing(velocity); // Set the colliders facing
 
 		if (velocity.x != 0f) HorizontalCollisions(ref velocity);
 		if (velocity.y != 0f) VerticalCollisions(ref velocity);
@@ -67,6 +69,19 @@ public class Controller2D : RaycastController
 				collisions.below = (dir_y == -1);
 				collisions.above = (dir_y == 1);
 			}
+		}
+	}
+
+	// Set the direction the collider is facing
+	void SetFacing(Vector2 velocity)
+	{
+		if (velocity.x != 0f || velocity.y != 0f) // if moving in a direction
+		{
+			if (velocity.x != 0f) facing.x = Mathf.Sign(velocity.x);
+			else facing.x = 0f;
+
+			if (velocity.y != 0f) facing.y = Mathf.Sign(velocity.y);
+			else facing.y = 0f;
 		}
 	}
 

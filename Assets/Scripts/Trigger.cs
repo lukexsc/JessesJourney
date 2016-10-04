@@ -51,8 +51,6 @@ public class Trigger : RaycastController
 			else active = false; // if active on enter or stay - set not active
 			trigger_object = null; // reset trigger object
 		}
-
-		if (active) Debug.Log("Active");
 	}
 
 	public enum TriggerMode
