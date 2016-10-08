@@ -17,7 +17,7 @@ public class Interactive : MonoBehaviour
 				"This is a test of the dialgoue system.",
 				"This is testing how the text box deals with putting the text to a new line when the sentence is really long and probably a run on sentence."
 			};
-			Textbox.CreateTextbox(text, true);
+			Textbox.CreateTextbox(text, true, 0.01f);
 		}
 
 		UpdateActivity();
