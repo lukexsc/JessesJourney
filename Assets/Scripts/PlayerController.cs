@@ -69,6 +69,12 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 		}
+
+		// TEMP Scene Transition Test
+		//
+		if (Input.GetKeyDown(KeyCode.L)) Fade.instance.LoadScene("TEST2");
+		//
+		//
 	}
 
 	void DetectHit (RaycastHit2D hit)
