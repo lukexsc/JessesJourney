@@ -6,6 +6,12 @@ public class Controller2D : RaycastController
 	CollisionInfo collisions;
 	[HideInInspector] public Vector2 facing; // direction facing
 
+	public override void Start ()
+	{
+		base.Start ();
+		facing = new Vector2(0f, -1f); // start facing down
+	}
+
 	// Move Object
 	public void Move (Vector2 velocity)
 	{
