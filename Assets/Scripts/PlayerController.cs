@@ -2,7 +2,6 @@
 using System.Collections;
 
 [RequireComponent (typeof (Controller2D))]
-
 public class PlayerController : Entity
 {
 	// Sprites
@@ -94,7 +93,7 @@ public class PlayerController : Entity
 		Interactive inter = hit.transform.GetComponent<Interactive>();
 		if (inter)
 		{
-			if (Input.GetKeyDown(KeyCode.E)) inter.active = !inter.active;
+			if (Input.GetKeyDown(KeyCode.E)) inter.Activate();
 			return true;
 		}
 		else return false;
