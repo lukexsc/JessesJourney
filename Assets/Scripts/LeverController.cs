@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (Interactive))]
 public class LeverController : MonoBehaviour
 {
 	public Lever[] levers;
 	bool[] levers_active;
+	Interactive inter;
 
 	void Start ()
 	{
+		inter = GetComponent<Interactive>();
 		levers_active = new bool[levers.Length];
 		for (int i=0; i<levers.Length; i++) levers_active[i] = levers[i].GetActive();
 	}
@@ -34,10 +37,8 @@ public class LeverController : MonoBehaviour
 			else break;
 		}
 			
-		if (lever_count >= levers.Length) // if puzzle completed
-		{
-			Destroy(gameObject);
-		}
+		if (lever_count >= levers.Length) inter.SetActive(true); // if puzzle completed
+		else inter.SetActive(false); // Not done
 	}
 
 	void SetLever(int i)

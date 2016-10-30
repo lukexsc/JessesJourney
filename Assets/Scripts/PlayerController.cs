@@ -2,11 +2,10 @@
 using System.Collections;
 
 [RequireComponent (typeof (Controller2D))]
+[RequireComponent (typeof (Animator))]
+[RequireComponent (typeof (SpriteRenderer))]
 public class PlayerController : Entity
 {
-	// Sprites
-	public Sprite[] sprites;
-
 	// Movement Variables
 	[HideInInspector] public bool paused; // if player actions are paused
 	public float move_speed = 6f; // How fast the player moves
@@ -14,11 +13,15 @@ public class PlayerController : Entity
 	Vector2 velocity; // player's movement
 	Controller2D controller; // 2d movement + collision code component
 
+	Animator anim;
+	SpriteRenderer rend;
+
 	public override void Start()
 	{
 		base.Start ();
 		controller = GetComponent<Controller2D>();
-		SetSpriteFacing("down");
+		anim = GetComponent<Animator>();
+		rend = GetComponent<SpriteRenderer>();
 	}
 
 	void Update ()
@@ -51,9 +54,6 @@ public class PlayerController : Entity
 					if (inter) break;
 				}
 			}
-
-			if (controller.facing.y > 0f) SetSpriteFacing("up");
-			else SetSpriteFacing("down");
 		}
 		else // facing horizontally
 		{
@@ -74,18 +74,19 @@ public class PlayerController : Entity
 					if (inter) break;
 				}
 			}
-
-			if (controller.facing.x > 0f) SetSpriteFacing("right");
-			else SetSpriteFacing("left");
 		}
+
+		SetAnimation((velocity.x != 0f || velocity.y != 0f), (int)controller.facing.x, (int)controller.facing.y);
 	}
 
-	void SetSpriteFacing(string dir)
+	// Sets the Player's animator's variables
+	void SetAnimation(bool walking, int x_dir, int y_dir)
 	{
-		if (dir.ToLower() == "up") render.sprite = sprites[1]; // 1 - up
-		else if (dir.ToLower() == "right") render.sprite = sprites[2]; // 2 - right
-		else if (dir.ToLower() == "left") render.sprite = sprites[3];// 3 - left
-		else render.sprite = sprites[0]; // 0 - down
+		anim.SetBool("Walking", walking);
+		anim.SetInteger("X Dir", x_dir);
+		anim.SetInteger("Y Dir", y_dir);
+		if (x_dir < 0 && y_dir == 0) rend.flipX = true; // face left by flipping sprite
+		else rend.flipX = false; // otherwise don't flip
 	}
 
 	bool DetectHit (RaycastHit2D hit)

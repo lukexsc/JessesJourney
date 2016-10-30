@@ -12,10 +12,14 @@ public class Lever : MonoBehaviour
 	SpriteRenderer rend;
 	Interactive inter;
 
-	void Start ()
+	void Awake ()
 	{
 		inter = GetComponent<Interactive>();
 		rend = GetComponent<SpriteRenderer>();
+	}
+
+	void Start ()
+	{
 		if (inter.active) rend.sprite = down_sprite;
 		else rend.sprite = up_sprite;
 	}

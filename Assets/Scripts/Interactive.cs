@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (BoxCollider2D))]
 public class Interactive : MonoBehaviour
 {
 	public bool active;
@@ -23,5 +22,10 @@ public class Interactive : MonoBehaviour
 	public virtual void Activate()
 	{
 		active = !active;
+	}
+
+	public virtual void SetActive(bool val)
+	{
+		active = val;
 	}
 }

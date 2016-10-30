@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Trigger : RaycastController
 {
-	[HideInInspector] public bool active;
 	public Trigger.TriggerMode mode;
 	GameObject trigger_object;
+	Interactive inter;
 
 	public override void Start ()
 	{
 		base.Start ();
-		active = false;
+		inter = GetComponent<Interactive>();
 	}
 
 	void Update ()
@@ -30,11 +30,11 @@ public class Trigger : RaycastController
 			if (hit) // if raycast hit an activator object
 			{
 				hit_anything = true;
-				if (mode == Trigger.TriggerMode.stay) active = true; // if activate on stay - set active
+				if (mode == Trigger.TriggerMode.stay) inter.SetActive(true); // if activate on stay - set active
 				else if (mode == Trigger.TriggerMode.enter || mode == Trigger.TriggerMode.enterleave) // if activate on enter
 				{
-					if (trigger_object != hit.transform.gameObject) active = true; // if the stored trigger object is not the same hit object - actvate
-					else active = false; // if not new, set not active
+					if (trigger_object != hit.transform.gameObject) inter.SetActive(true); // if the stored trigger object is not the same hit object - actvate
+					else inter.SetActive(false); // if not new, set not active
 				}
 				trigger_object = hit.transform.gameObject; // set trigger object
 				break;
@@ -45,10 +45,10 @@ public class Trigger : RaycastController
 		{
 			if (mode == Trigger.TriggerMode.leave || mode == Trigger.TriggerMode.enterleave) // if activate on leave
 			{
-				if (trigger_object != null) active = true;// if there was an object in the trigger - set active
-				else active = false;
+				if (trigger_object != null) inter.SetActive(true); // if there was an object in the trigger - set active
+				else inter.SetActive(false);
 			}
-			else active = false; // if active on enter or stay - set not active
+			else inter.SetActive(false); // if active on enter or stay - set not active
 			trigger_object = null; // reset trigger object
 		}
 	}
