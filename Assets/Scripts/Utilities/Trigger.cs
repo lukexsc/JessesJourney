@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Trigger : RaycastController
 {
 	public Trigger.TriggerMode mode;
-	GameObject trigger_object;
-	Interactive inter;
+	protected GameObject trigger_object;
+	protected Interactive inter;
 
 	public override void Start ()
 	{
@@ -13,7 +14,7 @@ public class Trigger : RaycastController
 		inter = GetComponent<Interactive>();
 	}
 
-	void Update ()
+	public virtual void Update ()
 	{
 		UpdateRaycastOrigins();
 		float ray_length = col.bounds.size.x;

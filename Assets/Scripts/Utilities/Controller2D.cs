@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Controller2D : RaycastController
 {
-	CollisionInfo collisions;
+	[HideInInspector] public CollisionInfo collisions;
 	[HideInInspector] public Vector2 facing; // direction facing
 
 	public override void Start ()

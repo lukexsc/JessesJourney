@@ -10,7 +10,6 @@ public class Textbox : MonoBehaviour
 	public Text text_obj;
 	public bool stop_player;
 
-	PlayerController player;
 	string[] dialogue;
 	int current_line;
 
@@ -21,7 +20,6 @@ public class Textbox : MonoBehaviour
 	void Start ()
 	{
 		text_box = this;
-		player = FindObjectOfType<PlayerController>();
 		DisableTextbox();
 	}
 
@@ -66,22 +64,22 @@ public class Textbox : MonoBehaviour
 	public void EnableTextbox ()
 	{
 		box_obj.SetActive(true);
-		if (stop_player) player.paused = true;
+		if (stop_player) Game.paused = true;
 		active = true;
 	}
 
 	public void DisableTextbox ()
 	{
 		box_obj.SetActive(false);
-		player.paused = false;
+		Game.paused = false;
 		active = false;
 	}
 
 	// Reactivate the textbox and change the text
 	public static void CreateTextbox(string[] lines, bool pause_player, float speed)
 	{
-		text_box.active = true;
-		//text_box.EnableTextbox();
+		//text_box.active = true;
+		text_box.EnableTextbox();
 		text_box.current_line = 0;
 		text_box.type_place = 1;
 		text_box.type_count = 0f;

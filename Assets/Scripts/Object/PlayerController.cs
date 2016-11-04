@@ -7,11 +7,11 @@ using System.Collections;
 public class PlayerController : Entity
 {
 	// Movement Variables
+	[HideInInspector] public Controller2D controller; // 2d movement + collision code component
 	[HideInInspector] public bool paused; // if player actions are paused
 	public float move_speed = 6f; // How fast the player moves
 	float active_dis = 0.3f; // distance the player needs to be from an object to activate it
 	Vector2 velocity; // player's movement
-	Controller2D controller; // 2d movement + collision code component
 
 	Animator anim;
 	SpriteRenderer rend;
@@ -22,11 +22,18 @@ public class PlayerController : Entity
 		controller = GetComponent<Controller2D>();
 		anim = GetComponent<Animator>();
 		rend = GetComponent<SpriteRenderer>();
+
+		Game.player = this;
 	}
 
 	void Update ()
 	{
-		if (paused) return; // if paused, skip code
+		if (Game.paused) // if paused, skip code
+		{
+			anim.enabled = false;
+			return; 
+		}
+		else if (!anim.enabled) anim.enabled = true;
 
 		SetDrawOrder(); // Reset Draw Order
 			
