@@ -101,7 +101,7 @@ public class PlayerController : Entity
 		Interactive inter = hit.transform.GetComponent<Interactive>();
 		if (inter)
 		{
-			if (Input.GetKeyDown(KeyCode.E)) inter.Activate();
+			if (Input.GetButtonDown("Activate")) inter.PlayerActivate();
 			return true;
 		}
 		else return false;

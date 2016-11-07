@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (BoxCollider2D))]
 public class Interactive : MonoBehaviour
 {
-	public bool active;
+	public bool active = false;
 	public bool keep_state;
+	public bool ignore_player; // ignore the player attempts to directly activate
 
 	public virtual void Update ()
 	{
@@ -28,5 +28,10 @@ public class Interactive : MonoBehaviour
 	public virtual void SetActive(bool val)
 	{
 		active = val;
+	}
+
+	public virtual void PlayerActivate()
+	{
+		if (!ignore_player) Activate();
 	}
 }

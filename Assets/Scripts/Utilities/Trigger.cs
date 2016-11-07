@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+[RequireComponent (typeof (Interactive))]
 public class Trigger : RaycastController
 {
 	public Trigger.TriggerMode mode;

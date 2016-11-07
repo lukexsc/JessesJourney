@@ -8,7 +8,7 @@ public class NPC : Interactive
 		
 	public override void Update ()
 	{
-		if (active) Textbox.CreateTextbox(dialogue, true, 0.02f);
+		if (active) Textbox.CreateTextbox(dialogue, true, 0.01f);
 		UpdateActivity();
 	}
 }

@@ -5,6 +5,7 @@ using System.Collections;
 [RequireComponent (typeof (Interactive))]
 public class Lever : MonoBehaviour
 {
+	public bool down;
 	public bool correct_setting;
 	public Sprite up_sprite;
 	public Sprite down_sprite;
@@ -20,28 +21,37 @@ public class Lever : MonoBehaviour
 
 	void Start ()
 	{
-		if (inter.active) rend.sprite = down_sprite;
-		else rend.sprite = up_sprite;
+		SetSprite(down);
 	}
 
 	void Update ()
 	{
-		if (inter.active) rend.sprite = down_sprite;
+		if (inter.active && !down) Switch(); // If interacted and lever is up - pull down
+	}
+
+	// Sets the sprite of the lever
+	void SetSprite(bool lever_down)
+	{
+		if (lever_down) rend.sprite = down_sprite;
 		else rend.sprite = up_sprite;
 	}
 
+	// Check if lever is supposed to be up or down
 	public bool RightSetting()
 	{
-		return (correct_setting == inter.active);
+		return (correct_setting == down);
 	}
 
+	// Get if the lever is down or not
 	public bool GetActive()
 	{
-		return inter.active;
+		return down;
 	}
 
+	// Switches the position of the lever
 	public void Switch()
 	{
-		inter.Activate();
+		down = !down;
+		SetSprite(down);
 	}
 }
