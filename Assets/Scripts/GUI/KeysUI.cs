@@ -7,7 +7,7 @@ public class KeysUI : MonoBehaviour
 	public GameObject[] key_obj;
 	public int keys;
 
-	void Awake ()
+	void Start ()
 	{
 		keys_ui = this;
 		ShowKeys();

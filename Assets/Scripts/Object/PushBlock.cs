@@ -8,6 +8,7 @@ public class PushBlock : Interactive
 {
 	public float dis;
 	public float speed;
+	public AudioClip push_effect;
 
 	Vector3 target;
 	Vector2 dir;
@@ -29,6 +30,7 @@ public class PushBlock : Interactive
 		{
 			if (active) // if Pushed
 			{
+				SoundController.instance.PlayEffect(push_effect);
 				dir = Game.player.controller.facing;
 				if (dir.y != 0f) target = transform.position + new Vector3(0f, dir.y * dis); // Vertical Move
 				else target = transform.position + new Vector3(dir.x * dis, 0f); // Horizontal Move

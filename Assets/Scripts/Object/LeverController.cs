@@ -5,7 +5,10 @@ using System.Collections;
 public class LeverController : MonoBehaviour
 {
 	public Lever[] levers;
+	public AudioClip complete_effect;
+
 	bool[] levers_active;
+	bool beat = false;
 	Interactive inter;
 
 	void Start ()
@@ -37,8 +40,20 @@ public class LeverController : MonoBehaviour
 			else break;
 		}
 			
-		if (lever_count >= levers.Length) inter.SetActive(true); // if puzzle completed
-		else inter.SetActive(false); // Not done
+		if (lever_count >= levers.Length) // if puzzle completed
+		{
+			if (!beat)
+			{
+				beat = true;
+				SoundController.instance.PlayEffect(complete_effect);
+			}
+			inter.SetActive(true);
+		}
+		else
+		{
+			beat = false;
+			inter.SetActive(false); // Not done
+		}
 	}
 
 	void SetLever(int i)

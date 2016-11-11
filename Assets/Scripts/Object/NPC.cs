@@ -5,10 +5,32 @@ using System.Collections;
 public class NPC : Interactive
 {
 	public string[] dialogue;
-		
+	public AudioClip talk_effect;
+	public float delay;
+	float delay_counter;
+	bool talk;
+
 	public override void Update ()
 	{
-		if (active) Textbox.CreateTextbox(dialogue, true, 0.01f);
+		if (active)
+		{
+			Game.paused = true;
+			talk = true;
+			delay_counter = 0f;
+			SoundController.instance.PlayEffect(talk_effect);
+		}
+
+		if (talk)
+		{
+			if (delay_counter >= delay)
+			{
+				Textbox.CreateTextbox(dialogue, true, 0.01f);
+				talk = false;
+				delay_counter = 0f;
+			}
+			else delay_counter += Time.deltaTime;
+		}
+
 		UpdateActivity();
 	}
 }
