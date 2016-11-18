@@ -9,9 +9,12 @@ public class Lever : MonoBehaviour
 	public bool correct_setting;
 	public Sprite up_sprite;
 	public Sprite down_sprite;
+	public bool pop_up;
+	public AudioClip down_effect;
 
-	SpriteRenderer rend;
-	Interactive inter;
+	protected bool pressed;
+	protected SpriteRenderer rend;
+	protected Interactive inter;
 
 	void Awake ()
 	{
@@ -26,7 +29,8 @@ public class Lever : MonoBehaviour
 
 	void Update ()
 	{
-		if (inter.active && !down) Switch(); // If interacted and lever is up - pull down
+		if (pop_up) SetActive(inter.active);
+		else if (inter.active && !down) Switch(); // If interacted and lever is up - pull down
 	}
 
 	// Sets the sprite of the lever
@@ -53,5 +57,25 @@ public class Lever : MonoBehaviour
 	{
 		down = !down;
 		SetSprite(down);
+		if (!pressed)
+		{
+			SoundController.instance.PlayEffect(down_effect);
+			pressed = true;
+		}
+	}
+
+	public void SetActive(bool val)
+	{
+		down = val;
+		SetSprite(down);
+		if (down)
+		{
+			if (!pressed)
+			{
+				SoundController.instance.PlayEffect(down_effect);
+				pressed = true;
+			}
+		}
+		else pressed = false;
 	}
 }

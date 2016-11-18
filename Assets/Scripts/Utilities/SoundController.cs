@@ -25,4 +25,9 @@ public class SoundController : MonoBehaviour
 		music_source.clip = clip;
 		music_source.Play();
 	}
+
+	public AudioClip GetMusic()
+	{
+		return music_source.clip;
+	}
 }

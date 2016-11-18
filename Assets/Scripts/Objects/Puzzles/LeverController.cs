@@ -5,26 +5,48 @@ using System.Collections;
 public class LeverController : MonoBehaviour
 {
 	public Lever[] levers;
+	public Interactive reset;
 	public AudioClip complete_effect;
 
+	bool[] levers_base;
 	bool[] levers_active;
+	bool baseline; // if no lever has been pulled
 	bool beat = false;
 	Interactive inter;
 
 	void Start ()
 	{
+		baseline = true;
 		inter = GetComponent<Interactive>();
 		levers_active = new bool[levers.Length];
-		for (int i=0; i<levers.Length; i++) levers_active[i] = levers[i].GetActive();
+		levers_base = new bool[levers.Length];
+		for (int i=0; i<levers.Length; i++) // set base activation for levers
+		{
+			levers_active[i] = levers[i].GetActive();
+			levers_base[i] = levers[i].GetActive();
+		}
 	}
 
 	void Update ()
 	{
+		// Reset Puzzle
+		if (reset.active && !baseline)
+		{
+			baseline = true;
+			for (int i=0; i<levers.Length; i++)
+			{
+				levers[i].SetActive(levers_base[i]);
+				SetLever(i);
+			}
+			return;
+		}
+
 		// Check for activations and Flip Adjacent Switches
 		for (int i=0; i<levers.Length; i++)
 		{
 			if (levers_active[i] != levers[i].GetActive()) // if lever switched
 			{
+				baseline = false;
 				SetLever(i);
 				if (i > 0) SwitchLever(i-1); // not on left end
 				if (i < levers.Length-1) SwitchLever(i+1); // not on right end

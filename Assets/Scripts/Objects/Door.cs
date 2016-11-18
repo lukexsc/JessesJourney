@@ -9,7 +9,7 @@ public class Door : MonoBehaviour
 	SpriteRenderer rend;
 	int start_layer;
 	Color start_color;
-	bool open;
+	protected bool open;
 
 	void Start ()
 	{
@@ -19,19 +19,29 @@ public class Door : MonoBehaviour
 		start_color = rend.color;
 	}
 
-	void Update ()
+	public virtual void Update ()
 	{
 		if (!open && activator.active) // open door
 		{
-			gameObject.layer = 0;
-			rend.color = new Color(start_color.r, start_color.g, start_color.b, 0f);
-			open = true;
+			OpenDoor();
 		}
 		else if (open && !activator.active) // Close Door
 		{
-			gameObject.layer = start_layer;
-			rend.color = start_color;
-			open = false;
+			CloseDoor();
 		}
+	}
+
+	public void OpenDoor()
+	{
+		gameObject.layer = 0;
+		rend.color = new Color(start_color.r, start_color.g, start_color.b, 0f);
+		open = true;
+	}
+
+	public void CloseDoor()
+	{
+		gameObject.layer = start_layer;
+		rend.color = start_color;
+		open = false;
 	}
 }

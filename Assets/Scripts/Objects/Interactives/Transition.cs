@@ -15,7 +15,10 @@ public class Transition : Trigger
 
 		if (inter.active)
 		{
-			if (room_music) SoundController.instance.PlayMusic(room_music);
+			if (room_music)
+			{
+				if (room_music != SoundController.instance.GetMusic()) SoundController.instance.PlayMusic(room_music);
+			}
 			SoundController.instance.PlayEffect(transition_effect);
 			Fade.instance.LoadScene(room, loc, false);
 		}
