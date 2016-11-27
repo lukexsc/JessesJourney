@@ -10,16 +10,19 @@ public class Lever : MonoBehaviour
 	public Sprite up_sprite;
 	public Sprite down_sprite;
 	public bool pop_up;
-	public AudioClip down_effect;
+	//public AudioClip down_effect;
 
 	protected bool pressed;
 	protected SpriteRenderer rend;
 	protected Interactive inter;
 
+	AudioSource source;
+
 	void Awake ()
 	{
 		inter = GetComponent<Interactive>();
 		rend = GetComponent<SpriteRenderer>();
+		source = GetComponent<AudioSource>();
 	}
 
 	void Start ()
@@ -59,7 +62,8 @@ public class Lever : MonoBehaviour
 		SetSprite(down);
 		if (!pressed)
 		{
-			SoundController.instance.PlayEffect(down_effect);
+			//SoundController.instance.PlayEffect(down_effect);
+			source.Play();
 			pressed = true;
 		}
 	}
@@ -72,7 +76,8 @@ public class Lever : MonoBehaviour
 		{
 			if (!pressed)
 			{
-				SoundController.instance.PlayEffect(down_effect);
+				//SoundController.instance.PlayEffect(down_effect);
+				source.Play();
 				pressed = true;
 			}
 		}

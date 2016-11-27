@@ -6,18 +6,22 @@ public class LeverController : MonoBehaviour
 {
 	public Lever[] levers;
 	public Interactive reset;
-	public AudioClip complete_effect;
+	//public AudioClip complete_effect;
 
 	bool[] levers_base;
 	bool[] levers_active;
 	bool baseline; // if no lever has been pulled
 	bool beat = false;
+
 	Interactive inter;
+	AudioSource source;
 
 	void Start ()
 	{
-		baseline = true;
 		inter = GetComponent<Interactive>();
+		source = GetComponent<AudioSource>();
+
+		baseline = true;
 		levers_active = new bool[levers.Length];
 		levers_base = new bool[levers.Length];
 		for (int i=0; i<levers.Length; i++) // set base activation for levers
@@ -67,7 +71,8 @@ public class LeverController : MonoBehaviour
 			if (!beat)
 			{
 				beat = true;
-				SoundController.instance.PlayEffect(complete_effect);
+				//SoundController.instance.PlayEffect(complete_effect);
+				source.Play();
 			}
 			inter.SetActive(true);
 		}

@@ -5,10 +5,17 @@ using System.Collections;
 public class Bartender : Interactive
 {
 	public string[] dialogue;
-	public AudioClip talk_effect;
+	//public AudioClip talk_effect;
 	public float delay;
 	float delay_counter;
 	bool talk;
+
+	AudioSource source;
+
+	void Start ()
+	{
+		source = GetComponent<AudioSource>();
+	}
 
 	public override void Update ()
 	{
@@ -17,7 +24,8 @@ public class Bartender : Interactive
 			Game.paused = true;
 			talk = true;
 			delay_counter = 0f;
-			SoundController.instance.PlayEffect(talk_effect);
+			//SoundController.instance.PlayEffect(talk_effect);
+			source.Play();
 		}
 
 		if (talk)

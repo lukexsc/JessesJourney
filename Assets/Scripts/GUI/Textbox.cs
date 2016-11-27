@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Textbox : MonoBehaviour
 {
 	[HideInInspector] public bool active;
+	[HideInInspector] public bool paused;
 	[HideInInspector] public static Textbox text_box;
 	public GameObject box_obj;
 	public Text text_obj;
@@ -25,7 +26,7 @@ public class Textbox : MonoBehaviour
 
 	void Update ()
 	{
-		if (active)
+		if (active && !paused)
 		{
 			EnableTextbox();
 			if (current_line < dialogue.Length) // if writing line

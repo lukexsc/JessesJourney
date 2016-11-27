@@ -14,10 +14,12 @@ public class ButtonController : MonoBehaviour
 	bool beat = false; // if beat the puzzle
 
 	Interactive inter;
+	AudioSource source;
 
 	void Start ()
 	{
 		inter = GetComponent<Interactive>();
+		source = GetComponent<AudioSource>();
 
 		current = 0;
 		button_pressed = new bool[buttons.Length];
@@ -45,7 +47,9 @@ public class ButtonController : MonoBehaviour
 						if (current == buttons.Length-1) // if last button pressed - end puzzle
 						{
 							beat = true;
-							SoundController.instance.PlayEffect(complete_effect);
+							//SoundController.instance.PlayEffect(complete_effect);
+							source.clip = complete_effect;
+							source.Play();
 						}
 						else // Not end of the puzzle - move to next button
 						{
@@ -72,7 +76,9 @@ public class ButtonController : MonoBehaviour
 		beat = false;
 		inter.SetActive(false);
 
-		SoundController.instance.PlayEffect(fail_effect);
+		//SoundController.instance.PlayEffect(fail_effect);
+		source.clip = fail_effect;
+		source.Play();
 
 		for (int i=0; i<buttons.Length; i++)
 		{

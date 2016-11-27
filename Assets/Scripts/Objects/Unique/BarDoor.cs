@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (AudioSource))]
 [RequireComponent (typeof (BoxCollider2D))]
 [RequireComponent (typeof (SpriteRenderer))]
 public class BarDoor : MonoBehaviour
@@ -10,6 +11,8 @@ public class BarDoor : MonoBehaviour
 	Color start_color;
 	protected bool open;
 
+	AudioSource source;
+
 	void Start ()
 	{
 		open = false;
@@ -18,6 +21,8 @@ public class BarDoor : MonoBehaviour
 		start_color = rend.color;
 
 		if (Game.spoke_to_bartender) OpenDoor();
+
+		source = GetComponent<AudioSource>();
 	}
 
 	public virtual void Update ()
@@ -33,6 +38,7 @@ public class BarDoor : MonoBehaviour
 		gameObject.layer = 0;
 		rend.color = new Color(start_color.r, start_color.g, start_color.b, 0f);
 		open = true;
+		source.Play();
 	}
 
 	public void CloseDoor()
