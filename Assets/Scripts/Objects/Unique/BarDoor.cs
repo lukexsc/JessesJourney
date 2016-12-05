@@ -20,9 +20,8 @@ public class BarDoor : MonoBehaviour
 		start_layer = gameObject.layer;
 		start_color = rend.color;
 
-		if (Game.spoke_to_bartender) OpenDoor();
-
 		source = GetComponent<AudioSource>();
+		if (Game.spoke_to_bartender) OpenDoor();
 	}
 
 	public virtual void Update ()
@@ -38,7 +37,7 @@ public class BarDoor : MonoBehaviour
 		gameObject.layer = 0;
 		rend.color = new Color(start_color.r, start_color.g, start_color.b, 0f);
 		open = true;
-		source.Play();
+		//source.Play();
 	}
 
 	public void CloseDoor()

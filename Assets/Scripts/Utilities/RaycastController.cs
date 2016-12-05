@@ -5,7 +5,7 @@ using System.Collections;
 public class RaycastController : MonoBehaviour
 {
 	public LayerMask collision_mask;
-	const float ray_space = 0.25f;
+	const float ray_space = 0.35f;
 	[HideInInspector] public const float skin = 0.015f;
 	[HideInInspector] public int hor_ray_count;
 	[HideInInspector] public int ver_ray_count;

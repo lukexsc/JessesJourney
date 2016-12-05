@@ -22,4 +22,9 @@ public class Menu : MonoBehaviour
 	{
 		Application.Quit();
 	}
+
+	public void GoToScene(string new_scene)
+	{
+		Fade.instance.LoadScene(new_scene);
+	}
 }
