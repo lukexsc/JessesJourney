@@ -10,6 +10,7 @@ public class Game
 
 	// Game Values
 	public static bool spoke_to_bartender = false;
+	public static bool pushed_statue = false;
 
 	public static string GetCurrentSceneName()
 	{

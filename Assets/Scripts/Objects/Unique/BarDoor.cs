@@ -11,7 +11,7 @@ public class BarDoor : MonoBehaviour
 	Color start_color;
 	protected bool open;
 
-	AudioSource source;
+	//AudioSource source;
 
 	void Start ()
 	{
@@ -20,7 +20,7 @@ public class BarDoor : MonoBehaviour
 		start_layer = gameObject.layer;
 		start_color = rend.color;
 
-		source = GetComponent<AudioSource>();
+		//source = GetComponent<AudioSource>();
 		if (Game.spoke_to_bartender) OpenDoor();
 	}
 

@@ -1,20 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (AudioSource))]
 public class Key : Trigger
 {
-	AudioSource source;
-
-	void Awake ()
-	{
-		if (KeysUI.CheckRoom(Game.GetCurrentSceneName())) Destroy(gameObject); 
-	}
+	public AudioClip collect_clip;
 
 	public override void Start ()
 	{
 		base.Start ();
-		source = GetComponent<AudioSource>();
+		if (KeysUI.CheckRoom(Game.GetCurrentSceneName())) Destroy(gameObject); 
 	}
 
 	public override void Update ()
@@ -25,7 +19,7 @@ public class Key : Trigger
 		if (inter.active)
 		{
 			KeysUI.AddKey();
-			source.Play();
+			SoundController.instance.PlayEffect(collect_clip);
 			Destroy(gameObject);
 		}
 	}

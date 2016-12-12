@@ -11,6 +11,7 @@ public class MenuController : MonoBehaviour
 
 	void Start ()
 	{
+		Cursor.visible = false;
 		menu_obj.SetActive(false);
 		active = false;
 		box = GetComponent<Textbox>();

@@ -5,7 +5,7 @@ using System.Collections;
 public class ButtonController : MonoBehaviour
 {
 	public Lever[] buttons;
-	public Lever fake_button;
+	public Lever[] fake_buttons;
 	public AudioClip complete_effect;
 	public AudioClip fail_effect;
 
@@ -28,11 +28,14 @@ public class ButtonController : MonoBehaviour
 
 	void Update ()
 	{
-		// if Press Fake Button - Reset 
-		if (fake_button.GetActive())
+		// if Press any Fake Button - Reset 
+		for (int i=0; i<fake_buttons.Length; i++)
 		{
-			Reset();
-			return;
+			if (fake_buttons[i].GetActive())
+			{
+				Reset();
+				return;
+			}
 		}
 
 		// Cycle Buttons
@@ -85,6 +88,10 @@ public class ButtonController : MonoBehaviour
 			buttons[i].SetActive(false);
 			button_pressed[i] = false;
 		}
-		fake_button.SetActive(false);
+
+		for (int i=0; i<fake_buttons.Length; i++)
+		{
+			fake_buttons[i].SetActive(false);
+		}
 	}
 }

@@ -8,7 +8,6 @@ public class PushBlock : Interactive
 {
 	public float dis;
 	public float speed;
-	//public AudioClip push_effect;
 
 	Vector3 target;
 	Vector2 dir;

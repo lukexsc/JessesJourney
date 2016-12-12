@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 public class Fade : MonoBehaviour
 {
 	public static Fade instance;
-	public float transitionTime = 1.0f;
-	public bool fadeIn;
-	public bool fadeOut;
-	public Image fadeImg;
+	public float transition_time = 1.0f;
+	public Image fade_img;
 
 	bool fading = false;
 	float time = 0f;
@@ -20,14 +18,8 @@ public class Fade : MonoBehaviour
 		{
 			DontDestroyOnLoad(transform.gameObject);
 			instance = this;
-			if (fadeIn) fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, 1.0f);
 		}
 		else Destroy(transform.gameObject);
-	}
-
-	void OnEnable()
-	{
-		if (fadeIn) StartCoroutine(StartScene());
 	}
 
 	//This gets called from anywhere you need to load a new scene
@@ -40,49 +32,57 @@ public class Fade : MonoBehaviour
 		if (!fading) StartCoroutine(EndScene(level, player_loc, facing_right));
 	}
 
+	// Fades Into the Scene
 	IEnumerator StartScene()
 	{
 		time = 1.0f;
 		yield return null;
+
 		while (time >= 0.0f)
 		{
-			fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, time);
-			time -= Time.deltaTime * (1.0f / transitionTime);
+			fade_img.color = new Color(fade_img.color.r, fade_img.color.g, fade_img.color.b, time);
+			time -= Time.fixedDeltaTime * (1.0f / transition_time);//Time.deltaTime * (1.0f / transition_time);
 			yield return null;
 		}
-		fadeImg.gameObject.SetActive(false);
+
+		fade_img.gameObject.SetActive(false);
 		Game.paused = false;
 		fading = false;
 	}
-	IEnumerator StartScene(Vector3 player_loc) // Overload - set player location
+	IEnumerator StartScene(Vector3 player_loc2)
 	{
 		time = 1.0f;
 		yield return null;
-		Game.player.transform.position = player_loc;
+
 		while (time >= 0.0f)
 		{
-			fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, time);
-			time -= Time.deltaTime * (1.0f / transitionTime);
+			if (time == 1) Game.player.transform.position = player_loc2;
+			fade_img.color = new Color(fade_img.color.r, fade_img.color.g, fade_img.color.b, time);
+			time -= Time.fixedDeltaTime * (1.0f / transition_time); //Time.deltaTime * (1.0f / transition_time);
 			yield return null;
 		}
-		fadeImg.gameObject.SetActive(false);
+
+		fade_img.gameObject.SetActive(false);
 		Game.paused = false;
 		fading = false;
 	}
 
+	// Fades Out of the Scene
 	IEnumerator EndScene(string nextScene)
 	{
 		fading = true;
 		Game.paused = true;
-		fadeImg.gameObject.SetActive(true);
+		fade_img.gameObject.SetActive(true);
 		time = 0.0f;
 		yield return null;
+
 		while (time <= 1.0f)
 		{
-			fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, time);
-			time += Time.deltaTime * (1.0f / transitionTime);
+			fade_img.color = new Color(fade_img.color.r, fade_img.color.g, fade_img.color.b, time);
+			time +=  Time.fixedDeltaTime * (1.0f / transition_time);//Time.deltaTime * (1.0f / transition_time);
 			yield return null;
 		}
+
 		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
 		StartCoroutine(StartScene());
 	}
@@ -90,15 +90,17 @@ public class Fade : MonoBehaviour
 	{
 		fading = true;
 		Game.paused = true;
-		fadeImg.gameObject.SetActive(true);
+		fade_img.gameObject.SetActive(true);
 		time = 0.0f;
 		yield return null;
+
 		while (time <= 1.0f)
 		{
-			fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, time);
-			time += Time.deltaTime * (1.0f / transitionTime);
+			fade_img.color = new Color(fade_img.color.r, fade_img.color.g, fade_img.color.b, time);
+			time += Time.fixedDeltaTime * (1.0f / transition_time);//Time.deltaTime * (1.0f / transition_time);
 			yield return null;
 		}
+
 		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
 		StartCoroutine(StartScene(player_loc));
 	}

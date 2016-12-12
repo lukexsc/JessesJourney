@@ -9,7 +9,7 @@ public class KeysUI : MonoBehaviour
 	public GameObject[] key_obj;
 	public int keys;
 
-	void Start ()
+	void Awake ()
 	{
 		keys_ui = this;
 		ShowKeys();
@@ -43,5 +43,11 @@ public class KeysUI : MonoBehaviour
 	public static bool CheckRoom(string room)
 	{
 		return keys_ui.key_rooms.Contains(room);
+	}
+
+	public static void UseKeys(int num_keys)
+	{
+		keys_ui.keys = Mathf.Clamp(keys_ui.keys - num_keys, 0, 100);
+		keys_ui.ShowKeys();
 	}
 }
