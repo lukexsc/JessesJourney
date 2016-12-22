@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent (typeof (SpriteRenderer))]
 public class NPC : Interactive
 {
-	public string[] dialogue;
+	public DialogueLine[] dialogue;
 	//public AudioClip talk_effect;
 	public float delay;
 	float delay_counter;
@@ -32,7 +32,7 @@ public class NPC : Interactive
 		{
 			if (delay_counter >= delay)
 			{
-				Textbox.CreateTextbox(dialogue, true, 0.01f);
+				Textbox.CreateTextbox(dialogue, 0.005f);
 				talk = false;
 				delay_counter = 0f;
 			}

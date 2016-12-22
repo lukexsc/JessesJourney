@@ -19,7 +19,7 @@ public class Fade : MonoBehaviour
 			DontDestroyOnLoad(transform.gameObject);
 			instance = this;
 		}
-		else Destroy(transform.gameObject);
+		else Destroy(gameObject);
 	}
 
 	//This gets called from anywhere you need to load a new scene

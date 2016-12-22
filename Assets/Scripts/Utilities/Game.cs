@@ -11,6 +11,8 @@ public class Game
 	// Game Values
 	public static bool spoke_to_bartender = false;
 	public static bool pushed_statue = false;
+	public static int stage = 0; // 0 = intro | 1 = basement | 2 = ruins | 3 = puzzles | 4 =
+	public static string puzzle = "";
 
 	public static string GetCurrentSceneName()
 	{
